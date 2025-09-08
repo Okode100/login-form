@@ -36,3 +36,12 @@ app.post('login',  async (req, res) => {
     return res.status(401).json({message: 'Invalid credentials'});
 
  }
+
+ //compare permited password with the one in the database
+ const match = await bcrypt.compare(password, user.password);
+ if(match){
+    req.session.userId = user._id;
+    return res.send("Login successful");
+} else {
+    return res.status(401).send("Invalid credentials");
+}
