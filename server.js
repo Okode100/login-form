@@ -49,7 +49,6 @@ app.post('login',  async (req, res) => {
 //Register route
 app.post('/register', async (req, res) => {
     const  {username, password} = req.body;
-})
  
 // chech for existing user 
 const existingUser = await user.findOne({email});
@@ -60,4 +59,9 @@ if(existingUser){
  // hash the password befor storing in the database 
  const hashed = await bcrypt.hash(password, 12);
 
- 
+ //create new user
+ const newUser = new User({username, password: hashed});
+
+ await newUser.save();
+ return res,send('Registration successfull');
+});
