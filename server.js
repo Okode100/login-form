@@ -82,3 +82,8 @@ function requiredLogin(req,res,next){
     }
 }
 
+// Example of protected routes 
+app.get('/dashboard', requiredLogin, (req, res) => {
+    res.send('Welcome to your dashboard');
+});
+
