@@ -65,3 +65,20 @@ if(existingUser){
  await newUser.save();
  return res,send('Registration successfull');
 });
+
+//Logout endpoint
+app.get('/logout',(req, res) => {
+req.session.destroy(err => {
+    if(err) return res.status(500).send('Error logging out');
+    res.send('Logging out succesfull');
+})
+
+});
+
+//Middleware to protect routes 
+function requiredLogin(req,res,next){
+    if(!req.session.userId){
+        return res.status(401).send('Not log in');
+    }
+}
+
