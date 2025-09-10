@@ -45,3 +45,19 @@ app.post('login',  async (req, res) => {
 } else {
     return res.status(401).send("Invalid credentials");
 }
+
+//Register route
+app.post('/register', async (req, res) => {
+    const  {username, password} = req.body;
+})
+ 
+// chech for existing user 
+const existingUser = await user.findOne({email});
+if(existingUser){
+    return res.status(400).send('Email already exists');
+
+};
+ // hash the password befor storing in the database 
+ const hashed = await bcrypt.hash(password, 12);
+
+ 
